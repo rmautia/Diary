@@ -1,0 +1,24 @@
+<div class="container" id="most">
+  <h1>My Diary Notes</h1>
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div *ngFor='let note of notes;let i = index'>
+        <div>
+          <h4 id={{i}} appStrikethrough>{{note.name}} due on {{note.completeDate|date|uppercase}}</h4>
+          <button (click)='toggleDetails(i)' class="btn btn-success">Show Details</button>
+        </div>
+
+        <div *ngIf='note.showDescription'>
+          <app-note-detail  [note]='note' (isComplete) = 'deleteNote($event,i)'></app-note-detail>
+        </div>
+      </div>
+    </div>
+  
+  <div class="col-md-6">
+  <app-note-form (addNote)="addNewNote($event)"></app-note-form>
+  </div>
+  </div>
+  <p *ngIf='notes.length > 5'>Busy Schedule ahead. Time to shift pace</p>
+</div>
